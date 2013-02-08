@@ -24,9 +24,7 @@ void testApp::setup(){
     circleRadiusOuter = 200;
     circleRadiusInner = 150;
     
-//    for (int i=0;i<50;i++) {   // in case you'd like to see lots of these in action
-        v.push_back(Vehicle(ofRandom(0,ofGetWidth()),ofRandom(0,ofGetHeight())));
-//    }
+    v.push_back(Vehicle(ofGetWidth()/2,ofGetHeight()/2));
     
     
 

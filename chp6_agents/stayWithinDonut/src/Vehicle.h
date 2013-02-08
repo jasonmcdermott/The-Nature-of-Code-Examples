@@ -26,7 +26,7 @@ public:
         velocity *= 5;
         location.set(x, y);
         r = 3;
-        maxspeed = 6;
+        maxspeed = 4;
         maxforce = 0.25;
     }
 
@@ -50,28 +50,20 @@ public:
     void outerBoundaries(ofVec2f circleLocation, float circleRadiusOuter) {
         
         ofVec2f desired;
-        
-        // Predict location 5 (arbitrary choice) frames ahead
         ofVec2f predict(velocity);
-        predict *= 25;
+        predict *= 5;
         ofVec2f futureLocation(location);
-        
         futureLocation += predict;
-        
         ofVec2f distFromCircleCentre(circleLocation);
-        
         distFromCircleCentre -= futureLocation;
-        
         float distance = distFromCircleCentre.length();
         
         if (distance > circleRadiusOuter * 0.6) {
-            
             ofVec2f toCenter(circleLocation);
             toCenter -= location;
             toCenter.normalize();
             toCenter *= velocity.length();
             toCenter += velocity;
-            
             desired.set(toCenter);
             desired.normalize();
             desired *= maxspeed;
@@ -80,7 +72,6 @@ public:
         if (desired.length() != 0) {
             ofVec2f steer(desired);
             steer -= velocity;
-//            PVector steer = PVector.sub(desired, velocity);
             steer.limit(maxforce);
             applyForce(steer);
         }
@@ -91,28 +82,20 @@ public:
     void innerBoundaries(ofVec2f circleLocation, float circleRadiusInner) {
         
         ofVec2f desired;
-        
-        // Predict location 5 (arbitrary choice) frames ahead
         ofVec2f predict(velocity);
-        predict *= 25;
+        predict *= 5;
         futureLocation.set(location);
-        
         futureLocation += predict;
-        
         ofVec2f distFromCircleCentre(circleLocation);
-        
         distFromCircleCentre -= futureLocation;
-        
         float distance = distFromCircleCentre.length();
         
         if (distance < circleRadiusInner * 0.6) {
-            
             ofVec2f toCenter(circleLocation);
             toCenter += location;
             toCenter.normalize();
             toCenter *= velocity.length();
             toCenter += velocity;
-            
             desired.set(toCenter);
             desired.normalize();
             desired *= maxspeed;
@@ -121,7 +104,6 @@ public:
         if (desired.length() != 0) {
             ofVec2f steer(desired);
             steer -= velocity;
-            //            PVector steer = PVector.sub(desired, velocity);
             steer.limit(maxforce);
             applyForce(steer);
         }
